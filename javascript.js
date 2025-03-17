@@ -64,13 +64,15 @@ function playGame(){
         }
     }
 
-    while (humanScore < 5 && computerScore < 5){
+/*    while (humanScore < 5 && computerScore < 5){
         playRound(getHumanChoice(),getComputerChoice());
     }
+
 
     if (humanScore === 5){
         console.log("You won!");
     } else {
         console.log("You lost!");
     }
+*/
 }
