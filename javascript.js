@@ -1,78 +1,126 @@
 function getComputerChoice(){
+    
     const randomN = Math.floor(Math.random() * 3);
     switch (randomN){
         case 0:
-            console.log("Rock");
+            interrogation.src = "file:///home/odin/repos/RockPaperScissor/images/Rock.png";
             return("Rock");
         case 1:
-            console.log("Paper");
+            interrogation.src = "file:///home/odin/repos/RockPaperScissor/images/Paper.png";
             return("Paper");
         case 2:
-            console.log("Scissor");
+            interrogation.src = "file:///home/odin/repos/RockPaperScissor/images/Scissor.png";
             return("Scissor");
-        default:
-            console.log("Null");
-    }
-}
-
-function getHumanChoice(){
-    let number = prompt("What's your weapon? (Choose a number)\n 0 - Rock\n 1 - Paper\n 2 - Scissor");
-    switch (parseInt(number)){
-        case 0:
-            console.log("Rock");
-            return("Rock");
-        case 1:
-            console.log("Paper");
-            return("Paper");
-        case 2:
-            console.log("Scissor");
-            return("Scissor");
-        default:
-            getHumanChoice();
     }
 }
 
 function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
 
     function playRound (humanChoice, computerChoice){
         if(humanChoice == "Rock" && computerChoice == "Rock"){
-            console.log("It's a tie");
+            message.textContent = "It's a tie";
         } else if(humanChoice == "Rock" && computerChoice == "Paper"){
-            console.log("You lose! Paper beats Rock");
+            message.textContent ="You lose! Paper beats Rock";
             computerScore += 1;
+            computerScoreShow.textContent = "Computer : " + computerScore;
         } else if(humanChoice == "Rock" && computerChoice == "Scissor"){
-            console.log("You win! Rock beats Scissor");
-            humanScore += 1;
+            message.textContent = "You win! Rock beats Scissor";
+            playerScore += 1;
+            playerScoreShow.textContent = "You : " + playerScore;
         } else if(humanChoice == "Paper" && computerChoice == "Rock"){
-            console.log("You win! Paper beats Rock");
-            humanScore += 1;
+            message.textContent = "You win! Paper beats Rock";
+            playerScore += 1;
+            playerScoreShow.textContent = "You : " + playerScore;
         } else if(humanChoice == "Paper" && computerChoice == "Scissor"){
-            console.log("You lose! Scissor beats Paper");
+            message.textContent = "You lose! Scissor beats Paper";
             computerScore += 1;
+            computerScoreShow.textContent = "Computer : " + computerScore;
         } else if(humanChoice == "Paper" && computerChoice == "Paper"){
-            console.log("It's a tie");
+            message.textContent = "It's a tie";
         } else if(humanChoice == "Scissor" && computerChoice == "Rock"){
-            console.log("You lose! Rock beats Scissor");
+            message.textContent = "You lose! Rock beats Scissor";
             computerScore += 1;
+            computerScoreShow.textContent = "Computer : " + computerScore;
         } else if(humanChoice == "Scissor" && computerChoice == "Paper"){
-            console.log("You win! Scissor beats Paper");
-            humanScore += 1;
+            message.textContent = "You win! Scissor beats Paper";
+            playerScore += 1;
+            playerScoreShow.textContent = "You : " + playerScore;
         } else if(humanChoice == "Scissor" && computerChoice == "Scissor"){
-            console.log("It' a tie");
+            message.textContent = "It' a tie";
         }
     }
 
-/*    while (humanScore < 5 && computerScore < 5){
-        playRound(getHumanChoice(),getComputerChoice());
+    if(humanChoice == "default"){
+        alert("Click rock, paper or scissor");
     }
-
-
-    if (humanScore === 5){
-        console.log("You won!");
-    } else {
-        console.log("You lost!");
+    else {
+        let computerChoice = getComputerChoice();
+        playRound(humanChoice,computerChoice);
     }
-*/
 }
+
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+    humanChoice = "default";
+    playerScoreShow.textContent = "You : " + playerScore;
+    computerScoreShow.textContent = "Computer : " + computerScore;
+    rock.style.backgroundColor = "transparent";
+    paper.style.backgroundColor = "transparent";
+    scissor.style.backgroundColor = "transparent";
+    interrogation.src = "file:///home/odin/repos/RockPaperScissor/images/Interrogation.png";
+
+}
+
+let humanChoice = "default"; 
+
+let message = document.querySelector("#message");
+
+let interrogation = document.querySelector("#interrogation");
+
+let playerScoreShow = document.querySelector("#playerScoreShow");
+
+let computerScoreShow = document.querySelector("#computerScoreShow");
+
+let playerScore = 0;
+
+let computerScore = 0;
+
+const rock = document.querySelector("#rock");
+rock.addEventListener("click",function(e) {
+    humanChoice = "Rock";
+    rock.style.backgroundColor = "white";
+    paper.style.backgroundColor = "transparent";
+    scissor.style.backgroundColor = "transparent";
+});
+
+const paper = document.querySelector("#paper");
+paper.addEventListener("click",function(e) {
+    humanChoice= "Paper";
+    rock.style.backgroundColor = "transparent";
+    paper.style.backgroundColor = "white";
+    scissor.style.backgroundColor = "transparent";
+});
+
+const scissor = document.querySelector("#scissor");
+scissor.addEventListener("click",function(e) {
+    humanChoice = "Scissor";
+    rock.style.backgroundColor = "transparent";
+    paper.style.backgroundColor = "transparent";
+    scissor.style.backgroundColor = "white";
+});
+
+const fightreset = document.querySelector("#fightreset");
+fightreset.addEventListener("click", function (e) {
+    playGame(humanChoice);
+    if(playerScore == 5){
+        console.log("player");
+        reset();
+        message.textContent = "You won ! Play again.";
+    }
+    else if (computerScore == 5){
+        console.log("computer");
+        reset();
+        message.textContent = "You lost... Play again.";
+    }
+});
