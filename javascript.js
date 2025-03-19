@@ -1,5 +1,5 @@
 function getComputerChoice(){
-    
+
     const randomN = Math.floor(Math.random() * 3);
     switch (randomN){
         case 0:
@@ -114,12 +114,10 @@ const fightreset = document.querySelector("#fightreset");
 fightreset.addEventListener("click", function (e) {
     playGame(humanChoice);
     if(playerScore == 5){
-        console.log("player");
         reset();
         message.textContent = "You won ! Play again.";
     }
     else if (computerScore == 5){
-        console.log("computer");
         reset();
         message.textContent = "You lost... Play again.";
     }
